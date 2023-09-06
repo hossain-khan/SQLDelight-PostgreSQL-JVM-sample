@@ -1,39 +1,34 @@
 package dev.hossain.postgresqldelight
 
-import app.cash.sqldelight.db.SqlDriver
-import app.cash.sqldelight.driver.jdbc.asJdbcDriver
 import io.github.serpro69.kfaker.Faker
 import io.github.serpro69.kfaker.faker
-import javax.sql.DataSource
 import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 
+/**
+ * Test application entry point. Run the app with ▶️ icon from left gutter.
+ */
 fun main(args: Array<String>) {
     println("Begin SQLDelight 2.0 with PostgreSQL Sample!")
-    val appConfigLoader = AppConfigLoader()
+    val appConfig: AppConfig = AppConfigLoader().loadAppConfig()
     val sportsRepository = SportsRepository()
-    val dataSource: DataSource = sportsRepository.getSource(appConfigLoader.loadAppConfig())
+    val playerQueries: PlayerQueries = sportsRepository.getPlayerQueries(appConfig)
 
-
-    val driver: SqlDriver = dataSource.asJdbcDriver()
-    SportsDatabase.Schema.create(driver)
-
-    testDriveDatabase(driver, faker { })
+    testDriveDatabase(playerQueries, faker { })
 }
 
 
 /**
- * @param driver the [SqlDriver] required to create the database.
+ * Test drives different functions from [PlayerQueries].
+ *
+ * @param playerQueries SQLDelight class for doing player queries
  * @param faker Fake data generator.
  */
-fun testDriveDatabase(driver: SqlDriver, faker: Faker) {
-    val database = SportsDatabase(driver)
-
-    val playerQueries: PlayerQueries = database.playerQueries
-
+fun testDriveDatabase(playerQueries: PlayerQueries, faker: Faker) {
     // Show all players
-    println(playerQueries.selectAll().executeAsList())
+    val hockeyPlayers = playerQueries.selectAll().executeAsList()
+    println("Existing ${hockeyPlayers.size} records: $hockeyPlayers")
 
 
     // Uses query param to insert data
@@ -49,4 +44,7 @@ fun testDriveDatabase(driver: SqlDriver, faker: Faker) {
         full_name = faker.name.name()
     )
     playerQueries.insertFullPlayerObject(player)
+
+    val totalRecords = playerQueries.totalRecords().executeAsOne()
+    println("Total players: $totalRecords.")
 }

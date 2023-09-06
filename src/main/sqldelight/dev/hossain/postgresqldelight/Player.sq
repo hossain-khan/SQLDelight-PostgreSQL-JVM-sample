@@ -19,6 +19,8 @@ insertFullPlayerObject:
 INSERT INTO hockeyPlayer(player_number, full_name)
 VALUES ?;
 
+totalRecords:
+SELECT count(*) AS total_rows FROM hockeyPlayer;
 
 -- tableExists:
 -- https://database.guide/5-ways-to-check-if-a-table-exists-in-postgresql/
