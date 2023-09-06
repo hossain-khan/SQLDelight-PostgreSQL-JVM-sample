@@ -1,3 +1,5 @@
+package dev.hossain.postgresqldelight
+
 fun main(args: Array<String>) {
     println("Hello World!")
 
