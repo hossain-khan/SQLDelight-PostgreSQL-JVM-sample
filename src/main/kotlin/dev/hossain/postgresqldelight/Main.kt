@@ -2,7 +2,11 @@ package dev.hossain.postgresqldelight
 
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.asJdbcDriver
+import io.github.serpro69.kfaker.Faker
+import io.github.serpro69.kfaker.faker
 import javax.sql.DataSource
+import kotlin.math.absoluteValue
+import kotlin.random.Random
 
 
 fun main(args: Array<String>) {
@@ -13,23 +17,36 @@ fun main(args: Array<String>) {
 
 
     val driver: SqlDriver = dataSource.asJdbcDriver()
+    SportsDatabase.Schema.create(driver)
 
-    doDatabaseThings(driver)
+    testDriveDatabase(driver, faker { })
 }
 
 
-
-fun doDatabaseThings(driver: SqlDriver) {
+/**
+ * @param driver the [SqlDriver] required to create the database.
+ * @param faker Fake data generator.
+ */
+fun testDriveDatabase(driver: SqlDriver, faker: Faker) {
     val database = SportsDatabase(driver)
+
     val playerQueries: PlayerQueries = database.playerQueries
 
+    // Show all players
     println(playerQueries.selectAll().executeAsList())
-    // [HockeyPlayer(15, "Ryan Getzlaf")]
 
-    playerQueries.insert(player_number = 10, full_name = "Corey Perry")
+
+    // Uses query param to insert data
+    playerQueries.insert(
+        player_number = Random.nextInt().absoluteValue,
+        full_name = faker.name.name()
+    )
     println(playerQueries.selectAll().executeAsList())
-    // [HockeyPlayer(15, "Ryan Getzlaf"), HockeyPlayer(10, "Corey Perry")]
 
-    val player = HockeyPlayer(10, "Ronald McDonald")
+    // Uses full data object to insert data
+    val player = HockeyPlayer(
+        player_number = Random.nextInt().absoluteValue,
+        full_name = faker.name.name()
+    )
     playerQueries.insertFullPlayerObject(player)
 }

@@ -1,13 +1,11 @@
 -- Source: https://cashapp.github.io/sqldelight/2.0.0/jvm_postgresql/#fresh-schema
-CREATE TABLE hockeyPlayer (
+CREATE TABLE IF NOT EXISTS hockeyPlayer (
   player_number INTEGER PRIMARY KEY NOT NULL,
   full_name TEXT NOT NULL
 );
 
-CREATE INDEX hockeyPlayer_full_name ON hockeyPlayer(full_name);
+CREATE INDEX IF NOT EXISTS hockeyPlayer_full_name ON hockeyPlayer(full_name);
 
-INSERT INTO hockeyPlayer (player_number, full_name)
-VALUES (15, 'Ryan Getzlaf');
 
 selectAll:
 SELECT *
@@ -20,3 +18,8 @@ VALUES (?, ?);
 insertFullPlayerObject:
 INSERT INTO hockeyPlayer(player_number, full_name)
 VALUES ?;
+
+
+-- tableExists:
+-- https://database.guide/5-ways-to-check-if-a-table-exists-in-postgresql/
+-- SELECT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename  = 'hockeyPlayer');

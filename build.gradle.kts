@@ -28,6 +28,10 @@ sqldelight {
     }
 }
 
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(19))
+}
+
 dependencies {
     // PostgreSQL is a powerful object-relational database system
     // https://www.postgresql.org/
@@ -42,6 +46,10 @@ dependencies {
     // SQLDelight - Generates typesafe Kotlin APIs from SQL
     // https://cashapp.github.io/sqldelight/2.0.0/jvm_postgresql
     implementation("app.cash.sqldelight:jdbc-driver:2.0.0")
+
+    // Faker - Generates fake data for testing or populating a development database.
+    // https://github.com/blocoio/faker
+    implementation("io.github.serpro69:kotlin-faker:1.14.0")
 
     testImplementation(kotlin("test"))
 }
