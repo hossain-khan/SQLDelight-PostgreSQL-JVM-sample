@@ -21,10 +21,9 @@ repositories {
 sqldelight {
     databases {
         create("SportsDatabase") {
-            packageName.set("dev.hossain.githubstats")
+            packageName.set("dev.hossain.postgresqldelight")
             // https://cashapp.github.io/sqldelight/2.0.0/jvm_postgresql/
             dialect("app.cash.sqldelight:postgresql-dialect:2.0.0")
-
         }
     }
 }

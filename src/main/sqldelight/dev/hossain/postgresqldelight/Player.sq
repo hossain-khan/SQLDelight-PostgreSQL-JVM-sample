@@ -1,3 +1,4 @@
+-- Source: https://cashapp.github.io/sqldelight/2.0.0/jvm_postgresql/#fresh-schema
 CREATE TABLE hockeyPlayer (
   player_number INTEGER PRIMARY KEY NOT NULL,
   full_name TEXT NOT NULL
