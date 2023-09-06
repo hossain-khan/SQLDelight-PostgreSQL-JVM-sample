@@ -29,6 +29,7 @@ jobs:
         java-version: '19'
         distribution: 'temurin'
     - name: Build with Gradle
-      uses: ./gradlew build
-      with:
-        arguments: build
+      run: ./gradlew lint build
+
+    - name: Run Unit Tests
+      run: ./gradlew test
