@@ -10,6 +10,7 @@ class AppConfigLoader {
     fun loadAppConfig(): AppConfig {
         val properties = Properties().apply { load(File("local.properties").inputStream()) }
         return AppConfig(
+            dbHost = properties.getProperty("db_host"),
             dbName = properties.getProperty("db_name"),
             dbUsername = properties.getProperty("db_username"),
             dbPassword = properties.getProperty("db_password"),
