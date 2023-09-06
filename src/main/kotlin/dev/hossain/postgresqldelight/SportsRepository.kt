@@ -17,7 +17,7 @@ class SportsRepository constructor(
         val dataSource: DataSource = getDataSource(appConfig)
 
         val driver: SqlDriver = dataSource.asJdbcDriver()
-        
+
         execSchema(driver)
 
         val database = SportsDatabase(driver)
