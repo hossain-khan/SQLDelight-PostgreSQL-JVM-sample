@@ -11,7 +11,8 @@ See [blog post](https://medium.com/@hossainkhan/using-sqldelight-2-0-with-postgr
 To run the sample app, you need to do the following
 1. Git clone the repo
 1. Rename/copy `sample-local.properties` into `local.properties`  
-  i. Update all app configurations like `db_name`, `db_password` and so on 
+  i. Update all app configurations like `db_host`, `db_password`, and so on
+1. Create the database with the name that matches `db_name` config
 1. Run app from [`Main.kt`](https://github.com/hossain-khan/SQLDelight-PostgreSQL-JVM-sample/blob/main/src/main/kotlin/dev/hossain/postgresqldelight/Main.kt)  
 
 ## 📚 Resources
