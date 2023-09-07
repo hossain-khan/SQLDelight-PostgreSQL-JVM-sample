@@ -16,6 +16,12 @@ fun main(args: Array<String>) {
     val playerQueries: PlayerQueries = sportsRepository.getPlayerQueries(appConfig)
 
     testDriveDatabase(playerQueries, faker { })
+
+    val journal = sportsRepository.getJournal(appConfig)
+    println(journal.selectAll().executeAsList())
+
+    journal.insert("{ \"customer\": \"Alex Cross\", \"items\": {\"product\": \"Tea\",\"qty\": 6}}")
+    journal.insert("{ \"customer\": \"Barney Stinson\", \"items\": {\"product\": \"chocoloate\",\"qty\": 24}}")
 }
 
 
