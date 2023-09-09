@@ -18,3 +18,4 @@ To run the sample app, you need to do the following
 ## 📚 Resources
 * https://cashapp.github.io/sqldelight
 * https://jdbc.postgresql.org/documentation/use/
+* https://github.com/brettwooldridge/HikariCP#readme
