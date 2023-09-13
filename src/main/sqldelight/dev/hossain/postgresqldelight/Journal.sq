@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS Journal (
+	id serial NOT NULL PRIMARY KEY,
+	entry json NOT NULL
+);
+
+
+selectAll:
+SELECT *
+FROM Journal;
+
+insert:
+INSERT INTO Journal(entry)
+VALUES (?);
+
+totalRecords:
+SELECT count(*) AS total_rows FROM Journal;

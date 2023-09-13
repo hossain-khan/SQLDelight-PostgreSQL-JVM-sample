@@ -26,6 +26,17 @@ class SportsRepository constructor(
         return playerQueries
     }
 
+    fun getJournal(appConfig: AppConfig): JournalQueries {
+        val dataSource: DataSource = getDataSource(appConfig)
+
+        val driver: SqlDriver = dataSource.asJdbcDriver()
+
+        execSchema(driver)
+
+        val database = SportsDatabase(driver)
+        return database.journalQueries
+    }
+
     /**
      * @param driver the [SqlDriver] required to create the database.
      */
@@ -36,7 +47,8 @@ class SportsRepository constructor(
     private fun getDataSource(appConfig: AppConfig): DataSource {
         val hikariConfig = HikariConfig()
         // https://jdbc.postgresql.org/documentation/use/
-        hikariConfig.setJdbcUrl("jdbc:postgresql://${appConfig.dbHost}/${appConfig.dbName}")
+        // https://stackoverflow.com/questions/65478350/error-column-is-of-type-json-but-expression-is-of-type-character-varying-in-hib
+        hikariConfig.setJdbcUrl("jdbc:postgresql://${appConfig.dbHost}/${appConfig.dbName}?stringtype=unspecified")
         hikariConfig.driverClassName = "org.postgresql.Driver"
         hikariConfig.username = appConfig.dbUsername
         hikariConfig.password = appConfig.dbPassword
