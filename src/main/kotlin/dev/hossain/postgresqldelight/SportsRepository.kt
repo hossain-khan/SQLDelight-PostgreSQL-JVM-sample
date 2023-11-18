@@ -33,14 +33,23 @@ class SportsRepository constructor(
         SportsDatabase.Schema.create(driver)
     }
 
-    private fun getDataSource(appConfig: AppConfig): DataSource {
-        val hikariConfig = HikariConfig()
-        // https://jdbc.postgresql.org/documentation/use/
-        hikariConfig.setJdbcUrl("jdbc:postgresql://${appConfig.dbHost}/${appConfig.dbName}")
-        hikariConfig.driverClassName = "org.postgresql.Driver"
-        hikariConfig.username = appConfig.dbUsername
-        hikariConfig.password = appConfig.dbPassword
 
-        return HikariDataSource(hikariConfig)
+    /**
+     * Creates a [DataSource] using [HikariDataSource].
+     * @param appConfig the [AppConfig] required to create the [DataSource].
+     */
+    private fun getDataSource(appConfig: AppConfig): DataSource {
+        // https://jdbc.postgresql.org/documentation/use/
+        val config = HikariConfig().apply {
+            jdbcUrl = "jdbc:postgresql://${appConfig.dbHost}/${appConfig.dbName}"
+            driverClassName = "org.postgresql.Driver"
+            username = appConfig.dbUsername
+            password = appConfig.dbPassword
+            maximumPoolSize = 3
+            isAutoCommit = false
+            transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+            validate()
+        }
+        return HikariDataSource(config)
     }
 }
