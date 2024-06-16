@@ -10,10 +10,12 @@ See [blog post](https://medium.com/@hossainkhan/using-sqldelight-2-0-with-postgr
 ## 🚗 Test Drive
 To run the sample app, you need to do the following
 1. Git clone the repo
-1. Rename/copy `sample-local.properties` into `local.properties`  
+2. Rename/copy `sample-local.properties` into `local.properties`  
   i. Update all app configurations like `db_host`, `db_password`, and so on
-1. Create the database with the name that matches `db_name` config
-1. Run app from [`Main.kt`](https://github.com/hossain-khan/SQLDelight-PostgreSQL-JVM-sample/blob/main/src/main/kotlin/dev/hossain/postgresqldelight/Main.kt)  
+3. Create the database with the name that matches `db_name` config
+4. Build the project to generate SQLDelight classes (e.g. `PlayerQueries`)
+  i. Run `./gradlew build` or `./gradlew generateMainDatabaseInterface`
+5. Run app from [`Main.kt`](https://github.com/hossain-khan/SQLDelight-PostgreSQL-JVM-sample/blob/main/src/main/kotlin/dev/hossain/postgresqldelight/Main.kt)  
 
 ## 📚 Resources
 * https://cashapp.github.io/sqldelight
