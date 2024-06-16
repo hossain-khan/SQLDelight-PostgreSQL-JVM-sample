@@ -13,6 +13,12 @@ fun main(args: Array<String>) {
     println("Begin SQLDelight 2.0 with PostgreSQL Sample!")
     val appConfig: AppConfig = AppConfigLoader().loadAppConfig()
     val sportsRepository = SportsRepository()
+    // ℹ️ NOTE:
+    // =================
+    // If your `PlayerQueries` is marked red, that means the generated class is not available.
+    // You have to run the following gradle task to generate the class.
+    //   - generateSqlDelightInterface: Aggregation task which runs every interface generation task for every given source
+    // Run `./gradlew generateSqlDelightInterface` from terminal or from IntelliJ IDEA Gradle tool window.
     val playerQueries: PlayerQueries = sportsRepository.getPlayerQueries(appConfig)
 
     testDriveDatabase(playerQueries, faker { })
